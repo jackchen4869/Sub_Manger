@@ -15,14 +15,14 @@ def add_sub(message, **kwargs):
         comment = url_comment[1]
         c.execute("SELECT * FROM My_sub WHERE URL=?", (url,))
         if c.fetchone():
-            bot.reply_to(message, "😅订阅已存在！")
+            bot.reply_to(message, "😅订阅已存在喵～！")
         else:
             c.execute("INSERT INTO My_sub VALUES(?,?)", (url, comment))
             conn.commit()
-            bot.reply_to(message, "✅添加成功！")
+            bot.reply_to(message, "✅添加成功喵～！")
     except Exception as e:
         print(e)
-        bot.send_message(message.chat.id, "😵😵输入格式有误，请检查后重新输入")
+        bot.send_message(message.chat.id, "😵😵猫猫你的输入格式有误，请检查后重新输入喵～")
 
 
 # 删除数据
@@ -36,10 +36,10 @@ def delete_sub(message, **kwargs):
         conn.commit()
         c.execute("VACUUM")
         conn.commit()
-        bot.reply_to(message, "✅删除成功！")
+        bot.reply_to(message, "✅删除成功喵～！")
     except Exception as e:
         print(e)
-        bot.send_message(message.chat.id, "😵😵输入格式有误，请检查后重新输入")
+        bot.send_message(message.chat.id, "😵😵猫猫你的输入格式有误，请检查后重新输入喵～")
 
 
 # 查找数据
@@ -75,7 +75,7 @@ def search_sub(message, **kwargs):
                 keyboard.append(page_buttons)
             keyboard.append([telebot.types.InlineKeyboardButton('❎结束搜索', callback_data='close')])
             reply_markup = telebot.types.InlineKeyboardMarkup(keyboard)
-            sent_message = bot.reply_to(message, f'卧槽，天降订阅🎁发现了{str(len(result))}个目标，快点击查看⏬',
+            sent_message = bot.reply_to(message, f'哇哦，天降订阅🎁发现了{str(len(result))}个目标，快点击查看喵～⏬',
                                         reply_markup=reply_markup)
             global sent_message_id
             sent_message_id = sent_message.message_id
@@ -83,10 +83,10 @@ def search_sub(message, **kwargs):
             callbacks[user_id] = {'total': total, 'current_page': current_page, 'result': result,
                                   'sent_message_id': sent_message_id}
         else:
-            bot.reply_to(message, '😅没有查找到结果！')
+            bot.reply_to(message, '😅没有查找到结果喵～！')
     except Exception as t:
         print(t)
-        bot.send_message(message.chat.id, "😵😵您输入的内容有误，请检查后重新输入")
+        bot.send_message(message.chat.id, "😵😵猫猫你的输入的内容有误，请检查后重新输入喵～")
 
 
 # 更新数据
@@ -101,10 +101,10 @@ def update_sub(message, **kwargs):
         comment = url_comment[1]
         c.execute("UPDATE My_sub SET URL=?, comment=? WHERE rowid=?", (url, comment, row_num))
         conn.commit()
-        bot.reply_to(message, "✅更新成功！")
+        bot.reply_to(message, "✅更新成功喵～！")
     except Exception as e:
         print(e)
-        bot.send_message(message.chat.id, "😵😵输入格式有误，请检查后重新输入")
+        bot.send_message(message.chat.id, "😵😵猫猫你的输入格式有误，请检查后重新输入喵～")
 
 
 # 使用帮助
@@ -120,7 +120,7 @@ def help_sub(message, **kwargs):
     6. 备份数据库：私聊发送 /backup ，该功能仅限超级管理员
     7. 日志输出： 私聊发送 /log ，该功能仅限超级管理员
 
-☎️*TG_Channel: @fffffx2 *
+☎️*TG_Channel: @lily666888 *
     '''
     bot.send_message(message.chat.id, doc, parse_mode='Markdown')
 
@@ -139,7 +139,7 @@ def backup(message, **kwargs):
         for file in os.listdir(backup_dir):
             if file != 'My_sub_backup.db':
                 os.remove(os.path.join(backup_dir, file))
-        bot.reply_to(message, "✅数据库备份完成")
+        bot.reply_to(message, "✅数据库备份完成喵～")
     except Exception as t:
         bot.reply_to(message, f"⚠️出现问题了，报错内容为: {t}")
 
