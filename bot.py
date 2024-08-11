@@ -46,13 +46,13 @@ def command_loader(bot: telebot.TeleBot, **kwargs):
                 with open('./config.yaml', 'r', encoding='utf-8') as fp:
                     config = yaml.safe_load(fp)
                 if new_admin in config['admin']:
-                    bot.reply_to(message, "😅管理员已存在!")
+                    bot.reply_to(message, "😅管理喵已存在!")
                     return
                 else:
                     config['admin'].append(new_admin)
                     with open("./config.yaml", "w", encoding='utf-8') as config_file:
                         yaml.dump(config, config_file, default_flow_style=False)
-                    bot.reply_to(message, "✅添加成功，当前管理员列表:\n" + str(config['admin']))
+                    bot.reply_to(message, "✅添加成功喵～，当前管理喵列表:\n" + str(config['admin']))
 
             elif command == '/remove':
                 del_admin = message.text.split()[1]
@@ -62,17 +62,17 @@ def command_loader(bot: telebot.TeleBot, **kwargs):
                     config['admin'].remove(del_admin)
                     with open('./config.yaml', 'w', encoding='utf-8') as fp:
                         yaml.dump(config, fp, default_flow_style=False)
-                    bot.reply_to(message, "✅移除成功，当前管理员列表:\n" + str(config['admin']))
+                    bot.reply_to(message, "✅移除成功喵～，当前管理喵列表:\n" + str(config['admin']))
                 else:
-                    bot.reply_to(message, "❌该管理员不存在!")
+                    bot.reply_to(message, "❌该管理员不存在喵～!")
 
             elif command == '/users':
                 with open('./config.yaml', 'r', encoding='utf-8') as fp:
                     config = yaml.safe_load(fp)
-                bot.reply_to(message, "✅查询成功，当前管理员列表:\n" + str(config['admin']))
+                bot.reply_to(message, "✅喵～，查询成功，当前管理喵列表:\n" + str(config['admin']))
 
         else:
-            bot.reply_to(message, "❌你没有操作权限，别瞎搞！")
+            bot.reply_to(message, "❌这只猫猫你没有操作权限，别瞎搞！")
 
         if str(message.from_user.id) == super_admin:
             try:
@@ -86,7 +86,7 @@ def command_loader(bot: telebot.TeleBot, **kwargs):
         elif str(message.from_user.id) in admin_id:
             pass
         else:
-            bot.reply_to(message, "🈲该操作仅限超级管理员！")
+            bot.reply_to(message, "🈲该操作仅限超级管理喵～！")
 
     # 接收xlsx表格
     @logger.catch()
@@ -106,14 +106,14 @@ def command_loader(bot: telebot.TeleBot, **kwargs):
                         if not c.fetchone():
                             c.execute("INSERT INTO My_sub VALUES(?,?)", (df.iloc[i, 0], df.iloc[i, 1]))
                             conn.commit()
-                    bot.reply_to(message, "✅导入成功！")
+                    bot.reply_to(message, "✅导入成功喵～！")
                 else:
                     bot.send_message(message.chat.id, "😵😵导入的文件格式错误，请检查文件后缀是否为xlsx后重新导入")
             except Exception as e:
                 print(e)
 
         else:
-            bot.reply_to(message, "😡😡😡你不是管理员，禁止操作！")
+            bot.reply_to(message, "😡😡😡你这只猫猫不是管理员，禁止操作！")
 
 
 def callback_loader(bot: telebot.TeleBot, **kwargs):
@@ -149,10 +149,10 @@ def callback_loader(bot: telebot.TeleBot, **kwargs):
                                                                                result[2]), parse_mode='Markdown')
                     logger.debug(f"用户{call.from_user.id}从BOT获取了{result}")
                 except TypeError as t:
-                    bot.send_message(call.message.chat.id, f"😵😵发生错误\n{t}")
+                    bot.send_message(call.message.chat.id, f"😵😵发生错误了喵～\n{t}")
         else:
             try:
-                bot.answer_callback_query(call.id, f"天地三清，道法无敌，邪魔避让！\n\n🈲‍", show_alert=True)
+                bot.answer_callback_query(call.id, f"不是你该点的东西喵～\n\n🈲‍", show_alert=True)
             except:
                 pass
 
